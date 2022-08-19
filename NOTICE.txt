@@ -1,0 +1,24 @@
+This work is based on HAPI FHIR server code and includes additions 
+for the support of the FHIR International Patient Summary. 
+
+Base HAPI FHIR server: https://github.com/hapifhir/hapi-fhir
+International Patient Summary: http://build.fhir.org/ig/HL7/fhir-ips/
+https://international-patient-summary.net/
+
+More information on Fast Healthcare Interoperability Resource (FHIR)
+https://hl7.org/FHIR/
+
+PRIOR NOTICE FROM HAPI FHIR SERVER
+
+Copyright 2015, University Health Network
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this work except in compliance with the License.
+You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
