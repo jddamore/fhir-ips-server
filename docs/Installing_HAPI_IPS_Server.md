@@ -1,5 +1,9 @@
 ## Installing HAPI IPS Server
 
+### Target Directory
+
+The server is setup to run as a HAPI JPA H
+
 ### Starting the Server
 
 If everything's installed and compiled, you can start server using with terminal output using 
