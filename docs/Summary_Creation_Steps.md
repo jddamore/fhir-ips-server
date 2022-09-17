@@ -68,7 +68,9 @@ To create a summary, a set of rules are applied to filter all Patient data down 
 
 ### Narrative Generation
 
-Narrative is required at the `Composition.section.text` within the IPS (see http://build.fhir.org/ig/HL7/fhir-ips/design.html#narrative-and-language-translation). Since individual resources may be loaded into this server with or without `Resource.text`, the server recreates narrative using machine-readable content. This narrative creation should be considered preliminary and **DRAFT** and not suitable for production implementation. Each section of the IPS has one or more tables with the following data elements:   
+Narrative is required at the `Composition.section.text` within the IPS (see http://build.fhir.org/ig/HL7/fhir-ips/design.html#narrative-and-language-translation). Since individual resources may be loaded into this server with or without `Resource.text`, the server recreates narrative using machine-readable content. 
+
+This narrative creation should be considered preliminary and **DRAFT** and not suitable for production implementation. To edit this formatting, you should edit the following template: hapi-fhir-base/src/main/resources/ca/uhn/fhir/narrative/ips/IPS.html. Each section of the IPS has one or more tables with the following data elements:   
 
 Advance Directive: 
 - Scope: Consent.scope.text || Consent.scope.coding[x].display
