@@ -105,7 +105,7 @@ datasource:
   url: 'jdbc:postgresql://localhost:5432/fhir'
   username: 
   password: 
-  driverClassName: org.postgreswl.Driver
+  driverClassName: org.postgresql.Driver
   platform: postgres
 
 tests: 
