@@ -113,6 +113,7 @@ const arrayLoad = function () {
     console.log('loading done');
     console.log(Patient);
     console.log(pd.json(hashMap));
+    Patient = null;
     hashMap = {};
     globalIndex++;
     loadNextDirectory();
@@ -153,12 +154,15 @@ const checkResource = function (data) {
   }
   else if (data.resourceType && data.resourceType === 'Bundle') {
     if (data.entry) {
-      for (let i = 0; data.entry.length; i++) {
-        if(data.entry[i].resourceType && allowableResourceTypes.includes(data.entry[i].resourceType)) {
-          resourcesToLoad.push(data.entry[i]);
+      for (let i = 0; i < data.entry.length; i++) {
+        if(data.entry[i].resource && data.entry[i].resource.resourceType && allowableResourceTypes.includes(data.entry[i].resource.resourceType)) {
+          resourcesToLoad.push(data.entry[i].resource);
+        }
+        else if(data.entry[i].resource && data.entry[i].resource.resourceType && data.entry[i].resource.resourceType === 'Patient') {
+          resourcesToLoad.push(data.entry[i].resource);
         }
         else {
-          console.log(chalk.yellow(`skipping ${data.entry[i].resourceType}`));
+          console.log(chalk.yellow(`skipping ${data.entry[i].resource.resourceType}`));
         }
       } 
     }
