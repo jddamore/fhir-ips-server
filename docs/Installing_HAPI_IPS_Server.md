@@ -2,7 +2,15 @@
 
 ### Target Directory
 
-The server is setup to run as a HAPI JPA H
+The server is setup to run as a HAPI JPA Server. You can copy the WAR and JAR files produced from the hapi-fhir edited branch into the target directory. Alternatively you can change your deploy sequence to incorporation in hapi-fhir
+
+### Server Customization
+
+The following defaults have been changed on the standard HAPI JPA server: 
+
+- DaoConfig to use UUID strategy for id
+- Logo of the HAPI server
+- Description of the HAPI server
 
 ### Starting the Server
 
