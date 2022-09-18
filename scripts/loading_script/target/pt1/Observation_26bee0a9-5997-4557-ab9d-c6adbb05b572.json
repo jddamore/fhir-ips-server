@@ -1,0 +1,51 @@
+{
+  "resourceType": "Observation",
+  "id": "26bee0a9-5997-4557-ab9d-c6adbb05b572",
+  "text": {
+    "status": "generated",
+    "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p><b>Generated Narrative</b></p><div style=\"display: inline-block; background-color: #d9e0e7; padding: 6px; margin: 4px; border: 1px solid #8da1b4; border-radius: 5px; line-height: 60%\"><p style=\"margin-bottom: 0px\">Resource \"26bee0a9-5997-4557-ab9d-c6adbb05b572\" </p></div><p><b>status</b>: final</p><p><b>category</b>: Laboratory <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"http://terminology.hl7.org/3.0.0/CodeSystem-observation-category.html\">Observation Category Codes</a>#laboratory)</span></p><p><b>code</b>: Bacteria identified in Isolate <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"https://loinc.org/\">LOINC</a>#42803-7)</span></p><p><b>subject</b>: <a href=\"#Patient_2b90dd2b-2dab-4c75-9bb9-a355e07401e8\">See above (Patient/2b90dd2b-2dab-4c75-9bb9-a355e07401e8)</a></p><p><b>effective</b>: 2017-12-10T08:20:00+01:00</p><p><b>performer</b>: <a href=\"#Organization_45a5c5b1-4ec1-4d60-b4b2-ff5a84a41fd7\">See above (Organization/45a5c5b1-4ec1-4d60-b4b2-ff5a84a41fd7)</a></p><p><b>value</b>: Methicillin resistant Staphylococcus aureus <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"https://browser.ihtsdotools.org/\">SNOMED CT</a>#115329001)</span></p><p><b>note</b>: Healthy carrier of MRSA</p></div>"
+  },
+  "status": "final",
+  "category": [
+    {
+      "coding": [
+        {
+          "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+          "code": "laboratory"
+        }
+      ]
+    }
+  ],
+  "code": {
+    "coding": [
+      {
+        "system": "http://loinc.org",
+        "code": "42803-7",
+        "display": "Bacteria identified in Isolate"
+      }
+    ]
+  },
+  "subject": {
+    "reference": "Patient/2b90dd2b-2dab-4c75-9bb9-a355e07401e8"
+  },
+  "effectiveDateTime": "2017-12-10T08:20:00+01:00",
+  "performer": [
+    {
+      "reference": "Organization/45a5c5b1-4ec1-4d60-b4b2-ff5a84a41fd7"
+    }
+  ],
+  "valueCodeableConcept": {
+    "coding": [
+      {
+        "system": "http://snomed.info/sct",
+        "code": "115329001",
+        "display": "Methicillin resistant Staphylococcus aureus"
+      }
+    ]
+  },
+  "note": [
+    {
+      "text": "Healthy carrier of MRSA"
+    }
+  ]
+}

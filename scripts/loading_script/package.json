@@ -1,0 +1,24 @@
+{
+  "name": "loadingData",
+  "version": "0.0.1",
+  "description": "fhir-ips-server scripts",
+  "main": "",
+  "type": "module",
+  "author": {
+    "name": "More Informatics, Inc.",
+    "email": "jdamore@moreinformaticss.com"
+  },
+  "engines": {
+    "node": "^14.16.1"
+  },
+  "dependencies": {
+    "chalk": "^5.0.1",
+    "pretty-data": "^0.40.0",
+    "request": "^2.88.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jddamore/fhir-ips-server"
+  },
+  "snyk": true
+}

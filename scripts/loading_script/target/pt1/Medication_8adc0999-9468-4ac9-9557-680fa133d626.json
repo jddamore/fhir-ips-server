@@ -1,0 +1,40 @@
+{
+  "resourceType": "Medication",
+  "id": "8adc0999-9468-4ac9-9557-680fa133d626",
+  "text": {
+    "status": "generated",
+    "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p><b>Generated Narrative</b></p><div style=\"display: inline-block; background-color: #d9e0e7; padding: 6px; margin: 4px; border: 1px solid #8da1b4; border-radius: 5px; line-height: 60%\"><p style=\"margin-bottom: 0px\">Resource \"8adc0999-9468-4ac9-9557-680fa133d626\" </p></div><p><b>code</b>: Black Cohosh Extract herbal supplement <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"https://browser.ihtsdotools.org/\">SNOMED CT</a>#412588001 \"Cimicifuga racemosa extract (substance)\"; <a href=\"http://terminology.hl7.org/3.0.0/CodeSystem-atc.html\">WHO ATC</a>#G02CX04 \"Cimicifugae rhizoma\")</span></p></div>"
+  },
+  "code": {
+    "coding": [
+      {
+        "system": "http://snomed.info/sct",
+        "code": "412588001",
+        "display": "Cimicifuga racemosa extract (substance)",
+        "_display": {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/translation",
+              "extension": [
+                {
+                  "url": "lang",
+                  "valueCode": "nl-NL"
+                },
+                {
+                  "url": "content",
+                  "valueString": "Zwarte Cohosh Extract"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "system": "http://www.whocc.no/atc",
+        "code": "G02CX04",
+        "display": "Cimicifugae rhizoma"
+      }
+    ],
+    "text": "Black Cohosh Extract herbal supplement"
+  }
+}

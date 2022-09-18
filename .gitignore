@@ -1,0 +1,4 @@
+# Dependency directories
+node_modules/
+scripts/node_modules
+scripts/loading_scripts/node_modules

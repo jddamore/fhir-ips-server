@@ -1,0 +1,37 @@
+{
+  "resourceType": "MedicationStatement",
+  "id": "47524493-846a-4a26-bae2-4ab03e60f02e",
+  "text": {
+    "status": "generated",
+    "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p><b>Generated Narrative</b></p><div style=\"display: inline-block; background-color: #d9e0e7; padding: 6px; margin: 4px; border: 1px solid #8da1b4; border-radius: 5px; line-height: 60%\"><p style=\"margin-bottom: 0px\">Resource \"47524493-846a-4a26-bae2-4ab03e60f02e\" </p></div><p><b>identifier</b>: id: 9e312d6b-c6b6-439a-a730-6efaa5dcf8bc</p><p><b>status</b>: active</p><p><b>medication</b>: <a href=\"#Medication_8adc0999-9468-4ac9-9557-680fa133d626\">See above (Medication/8adc0999-9468-4ac9-9557-680fa133d626)</a></p><p><b>subject</b>: <a href=\"#Patient_2b90dd2b-2dab-4c75-9bb9-a355e07401e8\">See above (Patient/2b90dd2b-2dab-4c75-9bb9-a355e07401e8)</a></p><p><b>effective</b>: 2016-01-01 --&gt; (ongoing)</p></div>"
+  },
+  "identifier": [
+    {
+      "system": "urn:oid:1.2.3.999",
+      "value": "9e312d6b-c6b6-439a-a730-6efaa5dcf8bc"
+    }
+  ],
+  "status": "active",
+  "medicationReference": {
+    "reference": "Medication/8adc0999-9468-4ac9-9557-680fa133d626"
+  },
+  "subject": {
+    "reference": "Patient/2b90dd2b-2dab-4c75-9bb9-a355e07401e8"
+  },
+  "effectivePeriod": {
+    "start": "2016-01"
+  },
+  "dosage": [
+    {
+      "route": {
+        "coding": [
+          {
+            "system": "http://standardterms.edqm.eu",
+            "code": "20053000",
+            "display": "Oral use"
+          }
+        ]
+      }
+    }
+  ]
+}
