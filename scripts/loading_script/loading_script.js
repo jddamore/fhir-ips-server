@@ -8,6 +8,8 @@ let target_url = 'https://ips.health/fhir';
 let target_directory = './target';
 
 let files = fs.readdirSync('./target');
+console.log('directories found to load');
+console.log(pd.json(files));
 
 let globalIndex = 0;
 
@@ -20,6 +22,7 @@ const loadNextDirectory = function () {
       if (err) throw err;
       else if (!stats.isDirectory()) {
         console.log(chalk.red(`skipping file ${files[globalIndex]} not nested in folder`));
+        // console.log(globalIndex);
         globalIndex++;
         loadNextDirectory();
       }
@@ -49,11 +52,10 @@ let allowableResourceTypes = [
   'Condition',
   'Immunization',
   'Procedure',
-  'DiagnosticReport',
   'Observation',
-  'MedicationStatement',
+  'DiagnosticReport',
   'MedicationRequest',
-  'Observation'
+  'MedicationStatement'
 ];
 
 let resourcesToLoad = [];
@@ -97,7 +99,10 @@ const arrayLoad = function () {
           for (let i = 0; i < nextObject[k1].length; i++) {
             if (nextObject[k1][i].reference && hashMap[nextObject[k1][i].reference]) {
               nextObject[k1][i].reference = hashMap[nextObject[k1][i].reference];
-            }    
+            }
+            else if (nextObject[k1][i].actor && nextObject[k1][i].actor.reference) {
+              nextObject[k1][i].actor.reference = hashMap[nextObject[k1][i].actor.reference];
+            }     
           }
         }
         else {
@@ -116,6 +121,7 @@ const arrayLoad = function () {
     Patient = null;
     hashMap = {};
     globalIndex++;
+    // console.log(globalIndex);
     loadNextDirectory();
   }
 } 
@@ -174,6 +180,7 @@ const checkResource = function (data) {
 
 const recursiveLoad = function (filepath) {
   let files = fs.readdirSync(`./${filepath}`);
+  if (!files.length) console.log(chalk.red(`Empty directory ${filepath}`))
   for (let i = 0; i < files.length; i++) {
     if (files[i].slice(-4).toLowerCase() !== 'json' ) {
       console.log(chalk.yellow(`skipping file which is not JSON ${filepath}`));
@@ -188,7 +195,10 @@ const recursiveLoad = function (filepath) {
       catch (e) {
         console.log(chalk.red(`${files[i]} is not JSON`));
       }
-      if (data) checkResource(data);
+      if (data) {
+        console.log(`attempting to load ./${filepath}/${files[i]}`)
+        checkResource(data)
+      };
     }
   }
   loadResources();   
