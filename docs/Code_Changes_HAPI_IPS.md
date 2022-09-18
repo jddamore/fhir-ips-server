@@ -17,3 +17,4 @@ The second file above is the primary logic for the summary creation. Multiple cl
 - noInfoAllergies / noInfoMedications / noInfoProblems: Dealing with IPS conformance expectations on no information
 - filterPrimaries / passesFilter: Use exclusion logic to identify resources not related to Patient Summary
 - pruneResources: Remove resources from Bundle not related to $summary operation 
+- createSectionNarrative: Create narrative using thyme leaf package already in HAPI server
