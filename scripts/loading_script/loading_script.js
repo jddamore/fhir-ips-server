@@ -15,6 +15,7 @@ let globalIndex = 0;
 
 const loadNextDirectory = function () {
   if (files.length <= globalIndex) {
+    console.log(pd.json(Patients));
     console.log('done');
   } 
   else {
@@ -61,6 +62,8 @@ let allowableResourceTypes = [
 let resourcesToLoad = [];
 let hashMap = {};
 let Patient = '';
+let Patients = [];
+let currentPath = '';
 
 const load = function (data, cb) {
   let options = {
@@ -72,7 +75,7 @@ const load = function (data, cb) {
     if (!err && res.statusCode === 201) {
       //console.log(res.body);
       let body = JSON.parse(res.body);
-      console.log(chalk.green(`${data.resourceType} loaded`))
+      console.log(chalk.green(`${data.resourceType} ${body.id} loaded`))
       hashMap[`${data.resourceType}/${data.id}`] = `${data.resourceType}/${body.id}`;
       if (data.resourceType === 'Patient') Patient = `${data.resourceType}/${body.id}`;
       cb();
@@ -118,6 +121,7 @@ const arrayLoad = function () {
     console.log('loading done');
     console.log(Patient);
     console.log(pd.json(hashMap));
+    Patients.push(`${currentPath} ---- ${Patient}`);
     Patient = null;
     hashMap = {};
     globalIndex++;
@@ -196,7 +200,8 @@ const recursiveLoad = function (filepath) {
         console.log(chalk.red(`${files[i]} is not JSON`));
       }
       if (data) {
-        console.log(`attempting to load ./${filepath}/${files[i]}`)
+        console.log(`attempting to load ./${filepath}/${files[i]}`);
+        currentPath = `${filepath}`;
         checkResource(data)
       };
     }
