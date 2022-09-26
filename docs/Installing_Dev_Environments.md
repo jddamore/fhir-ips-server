@@ -44,6 +44,10 @@ Find where postgresql is installed and navigate to folder
 
 Within this file, change the second entry (all user) from `peer` to `md5`
 
+Restart postgresql
+
+`sudo service postgresql restart`
+
 Launch PostgreSQL
 
 `sudo -i -u postgres`
@@ -59,6 +63,7 @@ Create a database
 Access database
 
 `psql`
+
 
 Change user password
 
