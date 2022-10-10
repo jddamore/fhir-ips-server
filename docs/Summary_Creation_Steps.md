@@ -52,7 +52,7 @@ To create a summary, a set of rules are applied to filter all Patient data down 
 - Immunizations (Immunization)
   - Exclude entered-in-error
 - Advance Directive (Consent)
-  - Only active|unknown status
+  - Only active status
 - Functional Status (ClinicalImpression)
   - Status in-progress | completed
 - Medical Devices (DeviceUseStatement)
