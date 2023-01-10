@@ -72,42 +72,42 @@ Narrative is required at the `Composition.section.text` within the IPS (see http
 
 This narrative creation should be considered preliminary and **DRAFT** and not suitable for production implementation. To edit this formatting, you should edit the following template: hapi-fhir-base/src/main/resources/ca/uhn/fhir/narrative/ips/IPS.html. Each section of the IPS has one or more tables with the following data elements:   
 
-Advance Directive: 
-- Scope: Consent.scope.text || Consent.scope.coding[x].display
+Advance Directives: 
+- Scope: Consent.scope.text || Consent.scope.coding[x].display (separated by \<br />)
 - Status: Consent.status.code
-- Action Controlled: Consent.provision.action[x].coding[x].display (concatenate items separated by comma, e.g. x, y, z) 
+- Action Controlled: Consent.provision.action[x].{ text || coding[x].display (separated by \<br />)} (concatenate items separated by comma, e.g. x, y, z) 
 - Date: Consent.dateTime
  
-Allergies: 
-- Allergen: AllergyIntolerance.code.text || AllergyIntolerance.code.coding[x].display 
-- Status: AllergyIntolerance.clinicalStatus.coding[x].display
-- Category: AllergyIntolerance.code[x]
-- Reaction: AllergyIntolerance.reaction.manifestation.text || AllergyIntolerance.reaction.manifestation.coding[x].display
-- Severity: AllergyIntolerance.reaction.severity.code
-- Comments: AllergyIntolerance.note[x].text (display all notes separated by \<br /> )
+Allergies And Intolerances: 
+- Allergen: AllergyIntolerance.code.text || AllergyIntolerance.code.coding[x].display (separated by \<br />)
+- Status: AllergyIntolerance.clinicalStatus.text || AllergyIntolerance.clinicalStatus.coding[x].code (separated by \<br />)
+- Category: AllergyIntolerance.category[x] (separated by \<br />)
+- Reaction: AllergyIntolerance.reaction.manifestation.description || AllergyIntolerance.reaction.manifestation.text || AllergyIntolerance.reaction.manifestation.coding[x].display (separated by \<br />)
+- Severity: AllergyIntolerance.reaction.severity[x].code (separated by \<br />)
+- Comments: AllergyIntolerance.note[x].text (separated by \<br /> )
 - Onset: AllergyIntolerance.onsetDateTime
  
 Functional Status: 
-- Assessment: ClinicalImpression.code.text ||  ClinicalImpression.code[x].display
+- Assessment: ClinicalImpression.code.text ||  ClinicalImpression.code[x].display (separated by \<br />)
 - Status: ClinicalImpression.status.code
 - Finding:  ClinicalImpression.summary
-- Comments: ClinicalImpression.note[x].text (display all notes separated by \<br /> )
-- Date: ClinicalImpression.effectiveDateTime
+- Comments: ClinicalImpression.note[x].text (separated by \<br /> )
+- Date: ClinicalImpression.effectiveDateTime || ClinicalImpression.effectivePeriod.start
  
 Immunizations: 
-- Immunization: Immunization.vaccineCode.text || Immunization.vaccineCode.coding[x].display
-- Status: Immunization.status.code
-- Dose Number: Immunization.doseNumberPositiveInt || Immunization.doseNumberString              
+- Immunization: Immunization.vaccineCode.text || Immunization.vaccineCode.coding[x].display (separated by \<br />)
+- Status: Immunization.status
+- Dose Number: Immunization.protocolApplied[x]{doseNumberPositiveInt || doseNumberString} (concatenate items separated by comma, e.g. x, y, z)            
 - Manufacturer: Organization.name
 - Lot Number: Immunization.lotNumber
-- Comments: Immunization.note[x].text (display all notes separated by \<br /> )
-- Date: Immunization.occurrenceDateTime
+- Comments: Immunization.note[x].text (separated by \<br /> )
+- Date: Immunization.occurrenceDateTime || Immunization.occurrenceString
  
 Medical Devices: 
-- Device: Device.type.coding.text || Device.type.coding[x].display
-- Status: DeviceUseStatement.status.code 
-- Comments: DeviceUseStatement.note[x].text (display all notes separated by \<br /> )
-- Date Recorded: DeviceUseStatement.recordedOn
+- Device: Device.type.text || Device.type.coding[x].display (separated by \<br />)
+- Status: DeviceUseStatement.status
+- Comments: DeviceUseStatement.note[x].text (separated by \<br /> )
+- Date Recorded: DeviceUseStatement.recordedDateTime
  
 Medications: 
 
@@ -116,7 +116,7 @@ Table 1 MedicationRequest
 - Status: MedicationRequest.status.display
 - Route: MedicationRequest.dosageInstruction[x].route.coding[x].display
 - Sig: MedicationRequest.dosageInstruction[x].text (display all sigs separated by \<br /> )
-- Comments: MedicationRequest.note[x].text (display all notes separated by \<br /> )
+- Comments: MedicationRequest.note[x].text (separated by \<br /> )
 - Authored Date: MedicationRequest.DateTime
  
 Table 2 MedicationStatement
@@ -129,26 +129,26 @@ Table 2 MedicationStatement
 Plan of Care
 - Activity: CarePlan.description
 - Intent: CarePlan.intent.code
-- Comments CarePlan.dosage [x].text
+- Comments CarePlan.note[x].text (separated by \<br /> )
 - Planned Start: CarePlan.period.start 
 - Planned End: CarePlan.period.end
  
 Pregnancy: 
-- Code: Observation.code.text || Observation.code.coding[x].display
-- Result: Observation.valueQuantity.value || Observation.valueDateTime || Observation.valueCodeableConcept.coding[x].display || Observation.valueString
-- Comments: Observation.note[x].text (display all notes separated by \<br /> )
-- Date: Observation.effectiveDateTime
+- Code: Observation.code.text || Observation.code.coding[x].display (separated by \<br />)
+- Result: Observation.valueQuantity || Observation.valueDateTime || Observation.valueCodeableConcept.text || Observation.valueCodeableConcept.coding[x].display (separated by \<br /> ) || Observation.valueString
+- Comments: Observation.note[x].text (separated by \<br /> )
+- Date: Observation.effectiveDateTime || Observation.effectivePeriod.start
  
-Past History of Past Illness & Problem List: 
-- Medical Problem: Condition.code.text || Condition.code.coding[x].display
-- Status: Condition.clinicalStatus.coding[x].display
-- Comments: Condition.note[x].text (display all notes separated by \<br /> )
-- Onset Date: Condition.onsetDateTime
+Past History of Illnesses: 
+- Medical Problems: Condition.code.text || Condition.code.coding[x].display (separated by \<br />)
+- Status: Condition.clinicalStatus.text || Condition.clinicalStatus.coding[x].display (separated by \<br />)
+- Comments: Condition.note[x].text (separated by \<br /> )
+- Onset Date: Condition.onsetDateTime || Condition.onsetPeriod.start - Condition.onsetPeriod.end || Condition.onsetAge || Condition.onsetRange.low - Condition.onsetRange.high || Condition.onsetString
  
-Procedures: 
-- Procedure: Procedure.code.text || Procedure.code.coding[x].display
-- Comments: Procedure.note[x].text(display all notes separated by \<br /> )
-- Date: Procedure.performedDateTime
+>History Of Procedures: 
+- Procedure: Procedure.code.text || Procedure.code.coding[x].display (separated by \<br /> )
+- Comments: Procedure.note[x].text(separated by \<br /> )
+- Date: Procedure.performedDateTime || Procedure.performedPeriod.start - Procedure.performedPeriod.end || Procedure.performedAge || Procedure.performedRange.low - Procedure.performedRange.high || CProcedure.performedString
  
 Results: 
 TABLE 1: Observation 
