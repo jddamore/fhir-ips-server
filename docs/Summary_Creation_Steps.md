@@ -75,7 +75,7 @@ This narrative creation should be considered preliminary and **DRAFT** and not s
 Advance Directives: 
 - Scope: Consent.scope.text || Consent.scope.coding[x].display (separated by \<br />)
 - Status: Consent.status.code
-- Action Controlled: Consent.provision.action[x].{ text || coding[x].display (separated by \<br />)} (concatenate items separated by comma, e.g. x, y, z) 
+- Action Controlled: Consent.provision.action[x].{ text || coding[x].display (separated by \<br />)} (concatenate with comma, e.g. x, y, z) 
 - Date: Consent.dateTime
  
 Allergies And Intolerances: 
@@ -84,99 +84,98 @@ Allergies And Intolerances:
 - Category: AllergyIntolerance.category[x] (separated by \<br />)
 - Reaction: AllergyIntolerance.reaction.manifestation.description || AllergyIntolerance.reaction.manifestation.text || AllergyIntolerance.reaction.manifestation.coding[x].display (separated by \<br />)
 - Severity: AllergyIntolerance.reaction.severity[x].code (separated by \<br />)
-- Comments: AllergyIntolerance.note[x].text (separated by \<br /> )
+- Comments: AllergyIntolerance.note[x].text (separated by \<br />)
 - Onset: AllergyIntolerance.onsetDateTime
  
 Functional Status: 
 - Assessment: ClinicalImpression.code.text ||  ClinicalImpression.code[x].display (separated by \<br />)
 - Status: ClinicalImpression.status.code
 - Finding:  ClinicalImpression.summary
-- Comments: ClinicalImpression.note[x].text (separated by \<br /> )
+- Comments: ClinicalImpression.note[x].text (separated by \<br />)
 - Date: ClinicalImpression.effectiveDateTime || ClinicalImpression.effectivePeriod.start
  
 Immunizations: 
 - Immunization: Immunization.vaccineCode.text || Immunization.vaccineCode.coding[x].display (separated by \<br />)
 - Status: Immunization.status
-- Dose Number: Immunization.protocolApplied[x]{doseNumberPositiveInt || doseNumberString} (concatenate items separated by comma, e.g. x, y, z)            
+- Dose Number: Immunization.protocolApplied[x]{doseNumberPositiveInt || doseNumberString} (concatenate with comma, e.g. x, y, z)            
 - Manufacturer: Organization.name
 - Lot Number: Immunization.lotNumber
-- Comments: Immunization.note[x].text (separated by \<br /> )
+- Comments: Immunization.note[x].text (separated by \<br />)
 - Date: Immunization.occurrenceDateTime || Immunization.occurrenceString
  
 Medical Devices: 
 - Device: Device.type.text || Device.type.coding[x].display (separated by \<br />)
 - Status: DeviceUseStatement.status
-- Comments: DeviceUseStatement.note[x].text (separated by \<br /> )
+- Comments: DeviceUseStatement.note[x].text (separated by \<br />)
 - Date Recorded: DeviceUseStatement.recordedDateTime
  
-Medications: 
+Medication Summary: 
 
-Table 1 MedicationRequest
-- Medication: MedicationRequest.medicationCodeableConcept.coding[x].display || Medication.code.coding.text || Medication.code.coding.code[x].display
+TABLE 1: Medication Summary: Medication Requests
+- Medication: MedicationRequest.medicationCodeableConcept.text || MedicationRequest.medicationCodeableConcept.coding[x].display (separated by \<br />) || Medication.code.text || Medication.code.coding[x].display (separated by \<br />)
 - Status: MedicationRequest.status.display
-- Route: MedicationRequest.dosageInstruction[x].route.coding[x].display
-- Sig: MedicationRequest.dosageInstruction[x].text (display all sigs separated by \<br /> )
-- Comments: MedicationRequest.note[x].text (separated by \<br /> )
-- Authored Date: MedicationRequest.DateTime
+- Route: MedicationRequest.dosageInstruction[x].{ route.text || route.coding[x].display (separated by \<br />) } (concatenate with comma, e.g. x, y, z) 
+- Sig: MedicationRequest.dosageInstruction[x].text (display all sigs separated by \<br />)
+- Comments: MedicationRequest.note[x].text (separated by \<br />)
+- Authored Date: MedicationRequest.authoredOn
  
-Table 2 MedicationStatement
-- Medication: MedicationStatement.medicationCodeableConcept.coding[x].display || Medication.code.coding.text || Medication.code.coding.code[x].display 
+TABLE 2: Medication Summary: Medication Statements
+- Medication: MedicationStatement.medicationCodeableConcept.text || MedicationStatement.medicationCodeableConcept.coding[x].display (separated by \<br />) || Medication.code.text || Medication.code.coding[x].display (separated by \<br />)
 - Status: MedicationStatement.status.display
-- Route: MedicationStatement.dosage[x].route.coding[x].display
-- Sig: MedicationStatement.dosage [x].text (display all sigs separated by \<br /> )
-- Date:  MedicationStatement.effectiveDateTime
+- Route: MedicationStatement.dosage[x].{ route.text || route.coding[x].display (separated by \<br />) } (concatenate with comma, e.g. x, y, z)
+- Sig: MedicationStatement.dosage[x].text (display all sigs separated by \<br />)
+- Date: MedicationStatement.effectiveDateTime || MedicationStatement.effectivePeriod.start
  
 Plan of Care
 - Activity: CarePlan.description
 - Intent: CarePlan.intent.code
-- Comments CarePlan.note[x].text (separated by \<br /> )
+- Comments CarePlan.note[x].text (separated by \<br />)
 - Planned Start: CarePlan.period.start 
 - Planned End: CarePlan.period.end
  
 Pregnancy: 
 - Code: Observation.code.text || Observation.code.coding[x].display (separated by \<br />)
-- Result: Observation.valueQuantity || Observation.valueDateTime || Observation.valueCodeableConcept.text || Observation.valueCodeableConcept.coding[x].display (separated by \<br /> ) || Observation.valueString
-- Comments: Observation.note[x].text (separated by \<br /> )
+- Result: Observation.valueQuantity || Observation.valueDateTime || Observation.valueCodeableConcept.text || Observation.valueCodeableConcept.coding[x].display (separated by \<br />) || Observation.valueString
+- Comments: Observation.note[x].text (separated by \<br />)
 - Date: Observation.effectiveDateTime || Observation.effectivePeriod.start
  
 Past History of Illnesses: 
 - Medical Problems: Condition.code.text || Condition.code.coding[x].display (separated by \<br />)
 - Status: Condition.clinicalStatus.text || Condition.clinicalStatus.coding[x].display (separated by \<br />)
-- Comments: Condition.note[x].text (separated by \<br /> )
-- Onset Date: Condition.onsetDateTime || Condition.onsetPeriod.start - Condition.onsetPeriod.end || Condition.onsetAge || Condition.onsetRange.low - Condition.onsetRange.high || Condition.onsetString
+- Comments: Condition.note[x].text (separated by \<br />)
+- Onset Date: Condition.onsetDateTime || Condition.onsetPeriod.start && “-“ && Condition.onsetPeriod.end || Condition.onsetAge || Condition.onsetRange.low - Condition.onsetRange.high || Condition.onsetString
  
->History Of Procedures: 
-- Procedure: Procedure.code.text || Procedure.code.coding[x].display (separated by \<br /> )
-- Comments: Procedure.note[x].text(separated by \<br /> )
-- Date: Procedure.performedDateTime || Procedure.performedPeriod.start - Procedure.performedPeriod.end || Procedure.performedAge || Procedure.performedRange.low - Procedure.performedRange.high || CProcedure.performedString
+History Of Procedures: 
+- Procedure: Procedure.code.text || Procedure.code.coding[x].display (separated by \<br />)
+- Comments: Procedure.note[x].text(separated by \<br />)
+- Date: Procedure.performedDateTime || Procedure.performedPeriod.start && “-“ && Procedure.performedPeriod.end || Procedure.performedAge || Procedure.performedRange.low && “-“ && Procedure.performedRange.high || Procedure.performedString
  
-Results: 
-TABLE 1: Observation 
-- Code: Observation.code.text || Observation.code.coding[x].display
-- Result: Observation.valueQuantity.value || Observation.valueCodeableConcept.coding[x].display || Observation.valueString
+Diagnostic Results: 
+
+TABLE 1: Diagnostic Results: Observations
+- Code: Observation.code.text || Observation.code.coding[x].display (separated by \<br />)
+- Result: Observation.valueQuantity || Observation.valueDateTime || Observation.valueCodeableConcept.text || Observation.valueCodeableConcept.coding[x].display (separated by \<br />) || Observation.valueString
 - Unit: Observation.valueQuantity.unit
-- Interpretation: Observation.interpretation.text || Observation. interpretation.coding[x].display
-- Reference Range: Observation.referenceRange.low.value && “-“ && Observation.referenceRange.high.value
-- Comments: Observation.note[x].text (display all notes separated by \<br /> )
-- Date: Observation.effectiveDateTime
+- Interpretation: Observation.interpretation[0].text || Observation.interpretation[0].coding[x].display (separated by \<br />)
+- Reference Range: Observation.referenceRange[x]{ text || low.value && “-“ && high.value} (concatenate with comma, e.g. x, y, z)
+- Comments: Observation.note[x].text (separated by \<br />)
+- Date: Observation.effectiveDateTime || Observation.effectivePeriod.start
  
-TABLE 2: DiagnosticReport
-- Code: DiagnosticReport.code.text || DiagnosticReport.code.coding[x].display
-- Date: DiagnosticReport.effectiveDateTime
+TABLE 2: Diagnostic Results: Diagnostic Reports
+- Code: DiagnosticReport.code.text || DiagnosticReport.code.coding[x].display (separated by \<br />)
+- Date: DiagnosticReport.effectiveDateTime || DiagnosticReport.effectivePeriod.start
  
 Social History:
-- Code: Observation.code.text || Observation.code.coding[x].display
-- Result: Observation.valueQuantity.value || Observation.valueCodeableConcept.coding[x].display || Observation.valueString
+- Code: Observation.code.text || Observation.code.coding[x].display (separated by \<br />)
+- Result: Observation.valueQuantity || Observation.valueDateTime || Observation.valueCodeableConcept.text || Observation.valueCodeableConcept.coding[x].display (separated by \<br />) || Observation.valueString
 - Unit: Observation.valueQuantity.unit
-- Comments: Observation.note[x].text (display all notes separated by \<br /> )
-- Date: Observation.effectiveDateTime
+- Comments: Observation.note[x].text (separated by \<br />)
+- Date: Observation.effectiveDateTime || Observation.effectivePeriod.start
  
 Vital Signs:  
-- Code: Observation.code.text || Observation.code.coding[x].display
-- Result: Observation.valueQuantity.value || Observation.valueCodeableConcept.coding[x].display || Observation.valueString
+- Code: Observation.code.text || Observation.code.coding[x].display (separated by \<br />)
+- Result: Observation.valueQuantity || Observation.valueDateTime || Observation.valueCodeableConcept.text || Observation.valueCodeableConcept.coding[x].display (separated by \<br />) || Observation.valueString
 - Unit: Observation.valueQuantity.unit
-- Interpretation: Observation.interpretation.text || Observation. interpretation.coding[x].display
-- Comments: Observation.note[x].text (display all notes separated by \<br /> ) 
-- Date: Observation.effectiveDateTime
- 
-
+- Interpretation: Observation.interpretation[0].text || Observation.interpretation[0].coding[x].display (separated by \<br />)
+- Comments: Observation.note[x].text (separated by \<br />)
+- Date: Observation.effectiveDateTime || Observation.effectivePeriod.start
