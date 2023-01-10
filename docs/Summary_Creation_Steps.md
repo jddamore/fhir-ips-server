@@ -129,7 +129,7 @@ TABLE 2: Medication Summary: Medication Statements
 Plan of Care
 - Activity: CarePlan.description
 - Intent: CarePlan.intent.code
-- Comments CarePlan.note[x].text (separated by \<br />)
+- Comments: CarePlan.note[x].text (separated by \<br />)
 - Planned Start: CarePlan.period.start 
 - Planned End: CarePlan.period.end
  
@@ -138,12 +138,18 @@ Pregnancy:
 - Result: Observation.valueQuantity || Observation.valueDateTime || Observation.valueCodeableConcept.text || Observation.valueCodeableConcept.coding[x].display (separated by \<br />) || Observation.valueString
 - Comments: Observation.note[x].text (separated by \<br />)
 - Date: Observation.effectiveDateTime || Observation.effectivePeriod.start
- 
+
+Problem List: 
+- Medical Problems: Condition.code.text || Condition.code.coding[x].display (separated by \<br />)
+- Status: Condition.clinicalStatus.text || Condition.clinicalStatus.coding[x].display (separated by \<br />)
+- Comments: Condition.note[x].text (separated by \<br />)
+- Onset Date: Condition.onsetDateTime || Condition.onsetPeriod.start && “-“ && Condition.onsetPeriod.end || Condition.onsetAge || Condition.onsetRange.low && “-“ && Condition.onsetRange.high || Condition.onsetString
+
 Past History of Illnesses: 
 - Medical Problems: Condition.code.text || Condition.code.coding[x].display (separated by \<br />)
 - Status: Condition.clinicalStatus.text || Condition.clinicalStatus.coding[x].display (separated by \<br />)
 - Comments: Condition.note[x].text (separated by \<br />)
-- Onset Date: Condition.onsetDateTime || Condition.onsetPeriod.start && “-“ && Condition.onsetPeriod.end || Condition.onsetAge || Condition.onsetRange.low - Condition.onsetRange.high || Condition.onsetString
+- Onset Date: Condition.onsetDateTime || Condition.onsetPeriod.start && “-“ && Condition.onsetPeriod.end || Condition.onsetAge || Condition.onsetRange.low && “-“ && Condition.onsetRange.high || Condition.onsetString
  
 History Of Procedures: 
 - Procedure: Procedure.code.text || Procedure.code.coding[x].display (separated by \<br />)
