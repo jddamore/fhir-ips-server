@@ -1,0 +1,35 @@
+﻿GP2GP DATA CLASS,GP2GP DATA ELEMENT,IPS PROFILE,FHIR RESOURCE,FHIR DATA ELEMENT,TRANSFORMATION TASK,TRANSFORMATION CODE,COMMENTS
+,,,,,,,
+Allergies,RECORD,AllergyIntolerance,AllergyIntolerance,RECORD,Remove duplicates,If multiples of same substance/reaction use only most recent of those entries,
+Allergies,substance/reaction,AllergyIntolerance,AllergyIntolerance,Code,Convert NKA to IPS absent/uknown Code,"Convert to ""no-known-allergies"", http://hl7.org/fhir/uv/ips/CodeSystem/absent-unknown-uv-ips",
+,,,,,,,Concept MUST be in FHIR Vital Signs Profile
+Diagnostic Reports,Code,Observation Results: Labs,Observation,Code,Convert to LOINC Code System,See 'Local Lap Mappings' Worksheet,Value must convert to a numeric (decimal) value
+Diagnostic Reports,Result Value,Observation Results: Labs,Observation,Value.Value,Convert to Decimal Value,Remove any unit text (e.g. 'kg') from GP2GP.Value.Value within context of LOINC Code,Assumes all weights in kg and height in cm
+Diagnostic Reports,Result Value,Observation Results: Labs,Observation,Value.Unit,Convert to UCUM Code,"Using LOINC Code - select appropriate UCUM Code, as per FHIR Profile",
+,,,,,,,
+Diagnostic Report Group,RECORD,Diagnostic Report,DiagnosticReport,RECORD,Remove Incomplete & >450 day old records,Only include records marked as completed and dated within the past 15 months,
+Diagnostic Report Group,Status,Diagnostic Report,DiagnosticReport,Code,Exclude if not 'completed' or is empty,Remove where status is not completed,
+Diagnostic Report Group,Status,Diagnostic Report,DiagnosticReport,Code,Convert 'completed' status to 'final'.,IPS Profile only permits a status value of 'final' - GP2GP default is 'completed',Value must convert to a numeric (decimal) value
+,,,,,,,
+Immunisations,RECORD,Immunization,Immunization,RECORD,Remove deprecated Influenza records,Include only a patient's last 2 immunisation jabs - and ALL their other immunisations.,
+,,,,,,,
+Medications,RECORD,Medication Statement,MedicationStatement,RECORD,Remove duplicate and inactive records,Only include one instance of a single medication code active in the past 12 months,Take status from grouping object
+Medications,administrationUnit.code,Medication,Medication,Code,Covert Incorrect Invalid SNOMED CT code,If SNOMED CT Code is 46992000 map to 385055001 ,
+,,,,,,,
+Problems,RECORD,Condition,Condition,RECORD,Remove duplicates,If multiples of same code and status use only most recent of these entries,
+Problems,RECORD,Social History: alcohol use,Observation,Code,Move alcohol use records to Observations,If coded element contains work 'drinker',
+Problems,RECORD,Social History: tobacco use,Observation,Code,Move smoking records to Observations,If coded element contains word 'smoke',
+Problems,code,Condition,Condition,Code,Convert Read Codes to SNOMED CT,"If Read Code & Term Match, use Map - otherwise select exact match to SCT Descript.",Use combination of description and Result Unit
+,,,,,,,Value must convert to a numeric (decimal) value
+Social History,RECORD,Vital Signs,Observation,RECORD,Exclude if Type is NOT alcohol or smoking,SocialHistoryType.alcohol || shItem.historyType == SocialHistoryType.smoking,Assumes all weights in kg and height in cm
+Social History,RECORD,Vital Signs,Observation,RECORD,Remove duplicates,If multiples of same code and status use only most recent of these entries,
+Social History,Code,Social History: alcohol use,Observation,Value,Identify units (per day) from GP2GP code,Extract units from Code Display,
+Social History,Code,Social History: tobacco use,Observation,Code,Convert to LOINC Smoking Use Code,Use GP2GP code display to match to LOINC Value Set,
+Social History,Status,Social History,Observation,Status,Convert 'completed' status to 'final'.,IPS Profile only permits a status value of 'final' - GP2GP default is 'completed',
+Social History,Type,Social History: alcohol use,Observation,Code,Convert to LOINC Code System,"CodeableConcept(FhirLoinc.URI, ""74013-4"", ""Alcoholic drinks per day"", null)",
+Social History,Type,Social History: tobacco use,Observation,Code,Convert to LOINC Code System,"CodeableConcept(FhirLoinc.URI, ""72166-2"", ""Tobacco smoking status"", null);",
+,,,,,,,
+Vital Signs,RECORD,Vital Signs,Observation,RECORD,Remove Incomplete & >450 day old records,Only include records marked as completed and dated within the past 15 months,This is the SCT concept for 'tablet' and rendered incorrectly by PMS
+Vital Signs,Code,Vital Signs,Observation,Code,Convert to  LOINC Code System,Map to LOINC VS code using display term in GP2GP code. ,
+Vital Signs,Value.Unit,Vital Signs,Observation,Value.Unit,Convert to UCUM Code,"Using LOINC Code - select appropriate UCUM Code, as per FHIR Profile",
+Vital Signs,Value.Value,Vital Signs,Observation,Value.Value,Convert to Decimal Value,Remove any unit text (e.g. 'kg') from GP2GP.Value.Value within context of LOINC Code,
