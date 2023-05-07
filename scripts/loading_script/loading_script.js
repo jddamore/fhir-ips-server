@@ -4,7 +4,7 @@ const pd = pretty.pd;
 import chalk from 'chalk'
 import request from 'request';
 
-let target_url = 'https://ips.health/fhir';
+let target_url = 'https://fhir.hausamconsulting.com/r4';
 let target_directory = './target';
 
 let files = fs.readdirSync('./target');
@@ -43,11 +43,12 @@ let allowableResourceTypes = [
   'Device',
   'Medication',
   'PractitionerRole',
+  'Encounter',
   'DeviceUseStatement',
   'Media',
   'Specimen',
   'AllergyIntolerance',
-  'CarePlan',
+ // 'CarePlan', Still needs some work for referential itnegrity
   'ClinicalImpression',
   'Consent',
   'Condition',
@@ -66,6 +67,8 @@ let Patients = [];
 let currentPath = '';
 
 const load = function (data, cb) {
+  let fullUrl = data.fullUrl;
+  delete data.fullUrl;
   let options = {
     url:`${target_url}/${data.resourceType}`, 
     headers: {'content-type' : 'application/json'},
@@ -77,11 +80,13 @@ const load = function (data, cb) {
       let body = JSON.parse(res.body);
       console.log(chalk.green(`${data.resourceType} ${body.id} loaded`))
       hashMap[`${data.resourceType}/${data.id}`] = `${data.resourceType}/${body.id}`;
+      hashMap[`${fullUrl}`] = `${data.resourceType}/${body.id}`;
       if (data.resourceType === 'Patient') Patient = `${data.resourceType}/${body.id}`;
       cb();
     }
     else {
-      console.log(chalk.red(`Failed to load ${data.resourceType}/${data.id}`))
+      console.log(chalk.red(`Failed to load ${data.resourceType}/${data.id} body below`))
+      console.log(chalk.yellow(pd.json(data)))
       cb();
     }
   }) 
@@ -96,21 +101,29 @@ const arrayLoad = function () {
     if (nextObject.subject) {
       nextObject.subject.reference = Patient;
     }
+    else if (nextObject.patient) {
+      nextObject.patient.reference = Patient;
+    }
     for (let k1 in nextObject) {
       if(nextObject.hasOwnProperty(k1)) {
         if (Array.isArray(nextObject[k1])) {
+          // console.log(`${k1} I am an array`)
           for (let i = 0; i < nextObject[k1].length; i++) {
             if (nextObject[k1][i].reference && hashMap[nextObject[k1][i].reference]) {
               nextObject[k1][i].reference = hashMap[nextObject[k1][i].reference];
             }
+            else if (nextObject[k1][i].individual && nextObject[k1][i].individual.reference) {
+              nextObject[k1][i].individual.reference = hashMap[nextObject[k1][i].individual.reference];
+            }     
             else if (nextObject[k1][i].actor && nextObject[k1][i].actor.reference) {
               nextObject[k1][i].actor.reference = hashMap[nextObject[k1][i].actor.reference];
             }     
           }
         }
         else {
-          if (nextObject[k1].reference && hashMap[nextObject[k1].reference]) {
-            nextObject[k1].reference = hashMap[nextObject[k1].reference];
+          let reference = nextObject[k1].reference;
+          if (reference && hashMap[reference]) {
+            nextObject[k1].reference = hashMap[reference];
           }  
         }
       }
@@ -166,6 +179,7 @@ const checkResource = function (data) {
     if (data.entry) {
       for (let i = 0; i < data.entry.length; i++) {
         if(data.entry[i].resource && data.entry[i].resource.resourceType && allowableResourceTypes.includes(data.entry[i].resource.resourceType)) {
+          if (data.entry[i].fullUrl) data.entry[i].resource.fullUrl = data.entry[i].fullUrl; 
           resourcesToLoad.push(data.entry[i].resource);
         }
         else if(data.entry[i].resource && data.entry[i].resource.resourceType && data.entry[i].resource.resourceType === 'Patient') {
