@@ -4,7 +4,7 @@ const pd = pretty.pd;
 import chalk from 'chalk'
 import request from 'request';
 
-let target_url = 'https://ips.health/fhir';
+let target_url = 'https://hapi.fhir.org/baseR4/';
 let target_directory = './target';
 
 let files = fs.readdirSync('./target');
@@ -92,6 +92,18 @@ const load = function (data, cb) {
   }) 
 }
 
+const removeNarrativeExtensions = function (data) {
+  let newArray = [];
+  if (data && data.length){
+    for (let i = 0; i < data.length; i++) {
+      if (data[i].url !== "http://hl7.org/fhir/StructureDefinition/narrativeLink") {
+        newArray.push(data[i]);
+      } 
+    }
+  }
+  return newArray;
+}
+
 const arrayLoad = function () {
   if (resourcesToLoad.length) {
     resourcesToLoad.sort(function (a, b) {return b.loadingOrder - a.loadingOrder});
@@ -103,6 +115,9 @@ const arrayLoad = function () {
     }
     else if (nextObject.patient) {
       nextObject.patient.reference = Patient;
+    }
+    if (nextObject.extension) {
+      nextObject.extension = removeNarrativeExtensions(nextObject.extension);
     }
     for (let k1 in nextObject) {
       if(nextObject.hasOwnProperty(k1)) {
@@ -117,7 +132,7 @@ const arrayLoad = function () {
             }     
             else if (nextObject[k1][i].actor && nextObject[k1][i].actor.reference) {
               nextObject[k1][i].actor.reference = hashMap[nextObject[k1][i].actor.reference];
-            }     
+            }
           }
         }
         else {
