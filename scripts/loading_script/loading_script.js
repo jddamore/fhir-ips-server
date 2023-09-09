@@ -4,7 +4,7 @@ const pd = pretty.pd;
 import chalk from 'chalk'
 import request from 'request';
 
-let target_url = 'https://fhir.hausamconsulting.com/r4';
+let target_url = 'https://ips.health/fhir';
 let target_directory = './target';
 
 let files = fs.readdirSync('./target');
